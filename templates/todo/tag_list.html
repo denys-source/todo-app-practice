@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="page-subheader">
+    <h1>Tags</h1>
+    <a class="action-link" href="{% url 'todo:tag-create' %}">
+      <i class="fa-solid fa-plus"></i>
+      Create tag
+    </a>
+  </div>
+  {% if tag_list %}
+    <div class="tag-container">
+      {% for tag in tag_list %}
+        <div class="card">
+          <div class="card-main-info">
+            <div class="card-title">
+              {{ tag.name }}
+            </div>
+            <div class="card-controls">
+              <a href="{% url 'todo:tag-update' tag.pk %}" class="action-link">Update</a>
+              <a href="{% url 'todo:tag-delete' tag.pk %}" class="action-link">Delete</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted">You haven't created any tags yet</p>
+  {% endif %}
+{% endblock content %}
+

@@ -1,0 +1,199 @@
+html {
+  --header-height: 10vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+ul {
+  list-style-type: square;
+  padding: 15px;
+  margin: 0;
+}
+
+a {
+  color: #1885d9;
+  text-decoration: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  margin: 0;
+}
+
+.main {
+  display: flex;
+  min-height: calc(100vh - var(--header-height));
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  background-color: #2e2e2e;
+  color: #fff;
+  padding: 25px;
+}
+
+.login-controls {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+}
+
+.nav {
+  flex: 1;
+  padding: 25px;
+  background-color: #f2f2f2;
+}
+
+.content {
+  flex: 4;
+  padding: 25px 10%;
+}
+
+.form {
+  border: 1px solid #ddd;
+  padding: 2rem;
+  background: #ffffff;
+}
+
+.login-form {
+  max-width: 350px;
+}
+
+.register-form {
+  max-width: 450px;
+}
+
+.task-form {
+  max-width: 450px;
+}
+
+.delete-form {
+  max-width: 150px;
+}
+
+.tag-form {
+  max-width: 450px;
+}
+
+.form-input {
+  background: #fafafa;
+  box-sizing: border-box;
+  border: 1px solid #eeeeee;
+  padding: 12px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-button {
+  background-color: #1885d9;
+  border: 1px solid #ddd;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  color: #fff;
+  background-color: #0e73c2;
+}
+
+.form-button-warning {
+  color: #fff;
+  background-color: #c20404;
+}
+
+.form-button-warning:hover {
+  color: #fff;
+  background-color: #b00505;
+}
+
+.text-muted {
+  color: #787878;
+}
+
+.sidebar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.action-link {
+  background-color: #f2f0f0;
+  padding: 10px 20px;
+}
+
+.action-link:hover {
+  background-color: #dbd9d9;
+}
+
+.action-link-success {
+  color: #fff;
+  background-color: #198754;
+}
+
+.action-link-success:hover {
+  color: #fff;
+  background-color: #147047;
+}
+
+.action-link-info {
+  color: #fff;
+  background-color: #3692d9;
+}
+
+.action-link-info:hover {
+  color: #fff;
+  background-color: #257dc2;
+}
+
+.page-subheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.page-subheader h1 {
+  margin: 0;
+}
+
+.card {
+  padding: 15px;
+  background-color: #f2f2f2;
+}
+
+.card:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
+.card-main-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+

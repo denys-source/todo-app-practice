@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="page-subheader">
+    <h1>TODO list</h1>
+    <a class="action-link" href="{% url 'todo:task-create' %}">
+      <i class="fa-solid fa-plus"></i>
+      Create task
+    </a>
+  </div>
+  {% if task_list %}
+    <div class="task-container">
+      {% for task in task_list %}
+        <div class="card">
+          <div class="card-main-info">
+            <div class="card-title">
+              <span {% if task.completed %}class="completed"{% endif %}>{{ task.content }}</span>
+              {% if task.completed %}
+                <span style="color: #198754;">done</span>
+              {% else %}
+                <span style="color: red;">not done</span>
+              {% endif %}
+            </div>
+            <div class="card-controls">
+              <a class="action-link" href="{% url 'todo:task-update' task.pk %}">Update</a>
+              <a class="action-link" href="{% url 'todo:task-delete' task.pk %}">Delete</a>
+              {% if task.completed %}
+                <a class="action-link action-link-info"
+                   href="{% url 'todo:toggle-completed' pk=task.pk %}">Cancel</a>
+              {% else %}
+                <a class="action-link action-link-success"
+                   href="{% url 'todo:toggle-completed' pk=task.pk %}">Complete</a>
+              {% endif %}
+            </div>
+          </a>
+        </div>
+        <p>Created at: {{ task.created_at }}</p>
+        {% if task.deadline %}<span style="color: red;">Deadline: {{ task.deadline }}</span>{% endif %}
+        <p>
+          Tags:
+          {% for tag in task.tags.all %}
+            {{ tag.name }}
+            {% if not forloop.last %},{% endif %}
+          {% empty %}
+            <span class="text-muted">no tags</span>
+          {% endfor %}
+        </p>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-muted">You haven't created any tasks yet</p>
+{% endif %}
+{% endblock content %}
+
