@@ -1,6 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView

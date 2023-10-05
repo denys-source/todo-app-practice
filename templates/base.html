@@ -14,7 +14,7 @@
   <body>
     <header class="header">
       <div class="logo">
-        <a href="#">Todo list</a>
+        <a href="{% url 'todo:home' %}">Todo list</a>
       </div>
       <ul class="login-controls">
         {% if user.is_authenticated %}
