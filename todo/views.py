@@ -1,5 +1,7 @@
+from typing import Any
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse
+from django.db.models import QuerySet
+from django.http import HttpRequest, HttpResponse, HttpResponseBase
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.text import slugify
@@ -11,9 +13,35 @@ from todo.forms import TagForm, TaskForm
 from todo.models import Tag, Task
 
 
+class TaskOwnerRequiredMixin:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
+        obj = self.get_object()
+        if obj.user != request.user:
+            raise PermissionDenied()
+        return super().dispatch(request, *args, **kwargs)
+
+
+class TagOwnerRequiredMixin:
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseBase:
+        obj = self.get_object()
+        if obj.created_by != request.user:
+            raise PermissionDenied()
+        return super().dispatch(request, *args, **kwargs)
+
+
 class HomeView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "todo/home.html"
+
+    def get_queryset(self) -> QuerySet[Task]:
+        queryset = Task.objects.prefetch_related("tags").filter(
+            user=self.request.user
+        )
+        return queryset
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
@@ -28,13 +56,13 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class TaskUpdateView(LoginRequiredMixin, UpdateView):
+class TaskUpdateView(LoginRequiredMixin, TaskOwnerRequiredMixin, UpdateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy("todo:home")
 
 
-class TaskDeleteView(LoginRequiredMixin, DeleteView):
+class TaskDeleteView(LoginRequiredMixin, TaskOwnerRequiredMixin, DeleteView):
     model = Task
     template_name = "todo/task_delete.html"
     success_url = reverse_lazy("todo:home")
@@ -53,6 +81,10 @@ def toggle_completed_status(request, pk: int) -> HttpResponse:
 class TagListView(LoginRequiredMixin, ListView):
     model = Tag
 
+    def get_queryset(self) -> QuerySet[Tag]:
+        queryset = Tag.objects.filter(created_by=self.request.user)
+        return queryset
+
 
 class TagCreateView(LoginRequiredMixin, CreateView):
     model = Tag
@@ -67,13 +99,13 @@ class TagCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class TagUpdateView(LoginRequiredMixin, UpdateView):
+class TagUpdateView(LoginRequiredMixin, TagOwnerRequiredMixin, UpdateView):
     model = Tag
     form_class = TagForm
     success_url = reverse_lazy("todo:tag-list")
 
 
-class TagDeleteView(LoginRequiredMixin, DeleteView):
+class TagDeleteView(LoginRequiredMixin, TagOwnerRequiredMixin, DeleteView):
     model = Tag
     template_name = "todo/tag_delete.html"
     success_url = reverse_lazy("todo:tag-list")
