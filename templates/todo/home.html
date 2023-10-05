@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>TODO list</h1>
+  {% if task_list %}
+    <div class="task-container">
+      {% for task in task_list %}<div class="task-card">{{ task.content }}</div>{% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted">You haven't created any tasks yet</p>
+  {% endif %}
+{% endblock content %}
+
