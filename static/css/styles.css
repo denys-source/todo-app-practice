@@ -140,3 +140,14 @@ body {
 .action-link:hover {
   background-color: #dbd9d9;
 }
+
+.task-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.task-controls h1 {
+  margin: 0;
+}

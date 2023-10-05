@@ -1,9 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
-
-from todo.middleware import get_current_user
 
 
 class User(AbstractUser):
@@ -16,11 +13,6 @@ class Tag(models.Model):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name="tags", on_delete=models.CASCADE
     )
-
-    def save(self, *args, **kwargs) -> None:
-        self.user = get_current_user()
-        self.slug = slugify(self.name)
-        return super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.name

@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>TODO list</h1>
+  <div class="task-controls">
+    <h1>TODO list</h1>
+    <a class="action-link" href="{% url 'todo:task-create' %}">
+      <i class="fa-solid fa-plus"></i>
+      Create task
+    </a>
+  </div>
   {% if task_list %}
     <div class="task-container">
       {% for task in task_list %}<div class="task-card">{{ task.content }}</div>{% endfor %}
