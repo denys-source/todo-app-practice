@@ -60,29 +60,30 @@ body {
   padding: 25px 10%;
 }
 
-.login-form {
-  max-width: 350px;
+.form {
   border: 1px solid #ddd;
   padding: 2rem;
   background: #ffffff;
+}
+
+.login-form {
+  max-width: 350px;
 }
 
 .register-form {
   max-width: 450px;
-  border: 1px solid #ddd;
-  padding: 2rem;
-  background: #ffffff;
 }
 
 .task-form {
   max-width: 450px;
-  border: 1px solid #ddd;
-  padding: 2rem;
-  background: #ffffff;
 }
 
 .delete-form {
   max-width: 150px;
+}
+
+.tag-form {
+  max-width: 450px;
 }
 
 .form-input {
@@ -161,30 +162,35 @@ body {
   background-color: #257dc2;
 }
 
-.task-controls {
+.page-subheader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 15px;
 }
 
-.task-controls h1 {
+.page-subheader h1 {
   margin: 0;
 }
 
-.task-card {
+.card {
   padding: 15px;
   background-color: #f2f2f2;
 }
 
-.task-card:not(:last-of-type) {
+.card:not(:last-of-type) {
   margin-bottom: 10px;
 }
 
-.task-main-info {
+.card-main-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.card-controls {
+  display: flex;
+  gap: 5px;
 }
 
 .completed {

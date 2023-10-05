@@ -40,3 +40,15 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ("content", "deadline", "tags")
         widgets = {"deadline": forms.widgets.DateInput(attrs={"type": "date"})}
+
+
+class TagForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "form-input"
+
+    class Meta:
+        model = Tag
+        fields = ("name",)

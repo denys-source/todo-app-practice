@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>{{ task|yesno:"Update,Create" }} task</h1>
-  <form class="form task-form" action="" method="post">
+  <h1>{{ tag|yesno:"Update,Create" }} tag</h1>
+  <form class="form tag-form" action="" method="post">
     {% csrf_token %}
     {% for field in form %}
       <div class="form-group">
@@ -12,7 +12,7 @@
     {% endfor %}
     <input class="form-button"
            type="submit"
-           value="{{ task|yesno:'Update,Create' }}">
+           value="{{ tag|yesno:'Update,Create' }}">
   </form>
 {% endblock content %}
 

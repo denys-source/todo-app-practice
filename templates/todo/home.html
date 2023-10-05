@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <div class="task-controls">
+  <div class="page-subheader">
     <h1>TODO list</h1>
     <a class="action-link" href="{% url 'todo:task-create' %}">
       <i class="fa-solid fa-plus"></i>
@@ -10,9 +10,9 @@
   {% if task_list %}
     <div class="task-container">
       {% for task in task_list %}
-        <div class="task-card">
-          <div class="task-main-info">
-            <div class="task-title">
+        <div class="card">
+          <div class="card-main-info">
+            <div class="card-title">
               <span {% if task.completed %}class="completed"{% endif %}>{{ task.content }}</span>
               {% if task.completed %}
                 <span style="color: #198754;">done</span>
@@ -20,13 +20,17 @@
                 <span style="color: red;">not done</span>
               {% endif %}
             </div>
-            {% if task.completed %}
-              <a class="action-link action-link-info"
-                 href="{% url 'todo:toggle-completed' pk=task.pk %}">Cancel</a>
-            {% else %}
-              <a class="action-link action-link-success"
-                 href="{% url 'todo:toggle-completed' pk=task.pk %}">Complete</a>
-            {% endif %}
+            <div class="card-controls">
+              <a class="action-link" href="{% url 'todo:task-update' task.pk %}">Update</a>
+              <a class="action-link" href="{% url 'todo:task-delete' task.pk %}">Delete</a>
+              {% if task.completed %}
+                <a class="action-link action-link-info"
+                   href="{% url 'todo:toggle-completed' pk=task.pk %}">Cancel</a>
+              {% else %}
+                <a class="action-link action-link-success"
+                   href="{% url 'todo:toggle-completed' pk=task.pk %}">Complete</a>
+              {% endif %}
+            </div>
           </a>
         </div>
         <p>Created at: {{ task.created_at }}</p>
@@ -34,7 +38,7 @@
         <p>
           Tags:
           {% for tag in task.tags.all %}
-            <a href="#">{{ tag.name }}</a>
+            {{ tag.name }}
             {% if not forloop.last %},{% endif %}
           {% empty %}
             <span class="text-muted">no tags</span>

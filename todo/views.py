@@ -2,12 +2,13 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.utils.text import slugify
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from todo.forms import TaskForm
-from todo.models import Task
+from todo.forms import TagForm, TaskForm
+from todo.models import Tag, Task
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -36,6 +37,7 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = "todo/task_delete.html"
+    success_url = reverse_lazy("todo:home")
 
 
 @login_required
@@ -46,3 +48,32 @@ def toggle_completed_status(request, pk: int) -> HttpResponse:
     task.completed = not task.completed
     task.save()
     return redirect(request.META.get("HTTP_REFERER", ""))
+
+
+class TagListView(LoginRequiredMixin, ListView):
+    model = Tag
+
+
+class TagCreateView(LoginRequiredMixin, CreateView):
+    model = Tag
+    form_class = TagForm
+    success_url = reverse_lazy("todo:tag-list")
+
+    def form_valid(self, form: TagForm) -> HttpResponse:
+        tag = form.save(commit=False)
+        tag.created_by = self.request.user
+        tag.slug = slugify(tag.name)
+        tag.save()
+        return super().form_valid(form)
+
+
+class TagUpdateView(LoginRequiredMixin, UpdateView):
+    model = Tag
+    form_class = TagForm
+    success_url = reverse_lazy("todo:tag-list")
+
+
+class TagDeleteView(LoginRequiredMixin, DeleteView):
+    model = Tag
+    template_name = "todo/tag_delete.html"
+    success_url = reverse_lazy("todo:tag-list")

@@ -2,7 +2,7 @@
 {% block content %}
   <h1>Login</h1>
   {% if form.errors %}<span style="color: red;">Invalid credentials were provided</span>{% endif %}
-  <form class="login-form" action="" method="post">
+  <form class="form login-form" action="" method="post">
     {% csrf_token %}
     {% for field in form %}
       <div class="form-group">
