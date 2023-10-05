@@ -98,9 +98,9 @@ body {
 }
 
 .form-button {
-  background-color: #bdbdbd;
+  background-color: #1885d9;
   border: 1px solid #ddd;
-  color: #000;
+  color: #fff;
   padding: 10px;
   width: 100%;
   cursor: pointer;
@@ -108,7 +108,7 @@ body {
 
 .form-button:hover {
   color: #fff;
-  background-color: #946363;
+  background-color: #0e73c2;
 }
 
 .form-button-warning {
@@ -125,3 +125,18 @@ body {
   color: #787878;
 }
 
+.sidebar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.action-link {
+  background-color: #f2f0f0;
+  padding: 10px 20px;
+}
+
+.action-link:hover {
+  background-color: #dbd9d9;
+}
