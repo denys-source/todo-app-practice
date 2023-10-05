@@ -16,9 +16,9 @@ ul {
   margin: 0;
 }
 
-a[href] {
-  text-decoration: none;
+a {
   color: #1885d9;
+  text-decoration: none;
 }
 
 body {
@@ -141,6 +141,26 @@ body {
   background-color: #dbd9d9;
 }
 
+.action-link-success {
+  color: #fff;
+  background-color: #198754;
+}
+
+.action-link-success:hover {
+  color: #fff;
+  background-color: #147047;
+}
+
+.action-link-info {
+  color: #fff;
+  background-color: #3692d9;
+}
+
+.action-link-info:hover {
+  color: #fff;
+  background-color: #257dc2;
+}
+
 .task-controls {
   display: flex;
   align-items: center;
@@ -150,4 +170,23 @@ body {
 
 .task-controls h1 {
   margin: 0;
+}
+
+.task-card {
+  padding: 15px;
+  background-color: #f2f2f2;
+}
+
+.task-card:not(:last-of-type) {
+  margin-bottom: 10px;
+}
+
+.task-main-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.completed {
+  text-decoration: line-through;
 }
